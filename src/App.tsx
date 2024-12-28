@@ -2,6 +2,7 @@ import {QueryClient,QueryClientProvider} from '@tanstack/react-query';
 import {Toaster} from 'sonner'
 import ControlLayout from './layouts/ControlLayer'
 import AuthButton from './components/Global/AuthButton';
+import Widget from './components/Global/Widget';
 
 
 function App() {
