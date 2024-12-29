@@ -6,7 +6,7 @@ import Widget from './components/Global/Widget';
 
 
 function App() {
-
+// Create a new instance of QueryClient
   const client=new QueryClient();
   return (
    <QueryClientProvider client={client}>

@@ -9,7 +9,7 @@ export type SourceDeviceStateProps = {
       id: string
       name: string
       thumbnail: unknown[]
-    }[]
+    }[];
     audioInputs?: {
       deviceId: string
       kind: string
@@ -48,7 +48,7 @@ export type SourceDeviceStateProps = {
           type: 'GET_DEVICES',
           payload: { isPending: true },
         })
-     getMediaSources().then((sources) => {
+     getMediaSources().then((sources) => 
         action({
           type: 'GET_DEVICES',
           payload: { 
@@ -57,6 +57,8 @@ export type SourceDeviceStateProps = {
             isPending: false,
           },
      }) 
+     )
+    
     }
+    return { state, fetchMediaResources }
   }
-  

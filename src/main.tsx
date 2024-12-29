@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </React.StrictMode>,
 )
 
-// Use contextBridge
+// Use contextBridge->listens to events from the main process
 window.ipcRenderer.on('main-process-message', (_event, message) => {
   console.log(message)
 })

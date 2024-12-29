@@ -11,16 +11,18 @@ const httpsClient=axios.create({
 
 
 export const onCloseApp=()=>window.ipcRenderer.send('closeApp')
-// 
+
+// fetchUserProfile function fetches the user profile from the server
 export const fetchUserProfile=async (clerkId:string)=>{
  const response=await httpsClient.get(`/auth/${clerkId}`,{
   headers:{
     'Content-Type':'application/json'
   }
  })
+ console.log(response)
  return response.data
 }
-
+// getMediaResources function fetches the media resources from the server
 export const getMediaSources = async () => {
   const displays = await window.ipcRenderer.invoke('getSources');
   const enumerateDevices = await window.navigator.mediaDevices.enumerateDevices();
@@ -29,4 +31,24 @@ export const getMediaSources = async () => {
   console.log('getting sources');
 
   return { displays, audio: audioInputs };
+};
+
+
+export const updateStudioSettings = async (
+  id: string,
+  screen: string,
+  audio: string,
+  preset: 'HD' | 'SD',
+) => {
+  const response = await httpsClient.post(`/studio/${id}`, {
+    screen,
+    audio,
+    preset,
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response.data;
 };

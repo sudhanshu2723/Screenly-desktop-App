@@ -12,10 +12,10 @@ type Props={
 
 export default function ControlLayout({children,className}:Props){
     const [isVisible,setIsVisible]=useState<boolean>(false);
-
+// The function  listens for the 'hide-plugin' event from the main process.
     window.ipcRenderer.on('hide-plugin',(event,payload)=>{
         console.log(event);
-        console.log(payload.state);
+        setIsVisible(payload.state);
      })
     return (
         <div className={cn(className,isVisible && 'invisible', 'bg-[#171717] flex px-1 flex-col rounded-3xl overflow-hidden ' )}>

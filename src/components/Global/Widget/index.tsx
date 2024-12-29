@@ -3,10 +3,11 @@ import { Loader } from "../Loader";
 import { useEffect, useState } from "react";
 import { fetchUserProfile } from "@/lib/utils";
 import { useMediaSources } from "@/hooks/useMediaSources";
+import MediaConfiguration from "../MediaConfiguration";
 
 
 export default function Widget() {
-    const[profile,setProfile]=useState<{status: number;
+    const[profile,setProfile]=useState<{status: number
   user: 
       | ({
           subscription: {
@@ -27,7 +28,7 @@ export default function Widget() {
           firstname: string | null;
           lastname: string | null;
           createdAt: Date;
-          clerkId: string;
+          clerkid: string;
         })
         | null
     } | null>(null);
@@ -41,21 +42,21 @@ export default function Widget() {
         fetchUserProfile(user.id)
         .then((p)=>setProfile(p))
       }
-    })
+    },[user])
     return (
-        <div className="p-5">
+        <div  className="p-5">
             <ClerkLoading>
                 <div className="h-full flex justify-center items-center">
                     <Loader/>
                 </div>
             </ClerkLoading>
-            {/* <SignedIn>
-                {profile ? <MediaConfiguration/>:
+            <SignedIn>
+                {profile ? <MediaConfiguration state={state} user={profile?.user}/>:
                 <div className="w-full h-full flex justify-center items-center">
                     <Loader color="#fff" />
                 </div>
                 }
-            </SignedIn> */}
+            </SignedIn>
         </div>
     )
 }
