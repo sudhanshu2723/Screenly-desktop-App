@@ -2,7 +2,7 @@
 function App() {
 
     return (
-     <h1>web cam Component</h1>
+     <h1 className="bg-black text-white">web cam Component</h1>
     )
   }
   

@@ -2,7 +2,7 @@
 function App() {
 
   return (
-   <h1>Studio ka Component</h1>
+   <h1 className="bg-black text-white">Studio ka Component</h1>
   )
 }
 
