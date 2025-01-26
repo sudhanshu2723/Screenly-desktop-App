@@ -11,6 +11,7 @@ type Props={
 
 
 export default function ControlLayout({children,className}:Props){
+    // state which tells wheather to hide the plugin or show the plugin
     const [isVisible,setIsVisible]=useState<boolean>(false);
 // The function  listens for the 'hide-plugin' event from the main process.
     window.ipcRenderer.on('hide-plugin',(event,payload)=>{
@@ -31,9 +32,6 @@ export default function ControlLayout({children,className}:Props){
                     <div className="flex items-center gap-x-2">
                         <img src="/opal-logo.svg" alt="app logo"/>
                     <p className="text-white text-2xl">Screenly</p> 
-               
-           
-
                </div>
             </div>
         </div>

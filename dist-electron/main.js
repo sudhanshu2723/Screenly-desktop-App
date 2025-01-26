@@ -50,7 +50,7 @@ function createWindow() {
   });
   floatingWebCam = new BrowserWindow({
     width: 400,
-    height: 200,
+    height: 300,
     minHeight: 70,
     maxHeight: 400,
     minWidth: 300,
@@ -80,6 +80,7 @@ function createWindow() {
       studio == null ? void 0 : studio.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
     }
   );
+  console.log("http://localhost:5173");
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
     studio.loadURL(`${"http://localhost:5173"}/studio.html`);
@@ -113,11 +114,13 @@ ipcMain.on("closeApp", () => {
   }
 });
 ipcMain.handle("getSources", async () => {
-  return await desktopCapturer.getSources({
+  const data = await desktopCapturer.getSources({
     thumbnailSize: { height: 100, width: 150 },
     fetchWindowIcons: true,
     types: ["window", "screen"]
   });
+  console.log("Displays", data);
+  return data;
 });
 ipcMain.on("media-sources", (event, payload) => {
   console.log(event);
@@ -133,7 +136,7 @@ ipcMain.on("resize-studio", (event, payload) => {
 });
 ipcMain.on("hide-plugin", (event, payload) => {
   console.log(event);
-  studio == null ? void 0 : studio.webContents.send("hide-plugin", payload);
+  win == null ? void 0 : win.webContents.send("hide-plugin", payload);
 });
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {

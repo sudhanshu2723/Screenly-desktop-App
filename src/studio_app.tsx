@@ -1,8 +1,9 @@
+import StudioTray from "./components/Global/StudioTray"
 
 function App() {
 
   return (
-   <h1 className="bg-black text-white">Studio ka Component</h1>
+   <StudioTray/>
   )
 }
 

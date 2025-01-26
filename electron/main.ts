@@ -69,7 +69,7 @@ studio=new BrowserWindow({
 
 floatingWebCam=new BrowserWindow({
     width:400,
-    height:200,
+    height:300,
     minHeight:70,
     maxHeight:400,
     minWidth:300,
@@ -102,7 +102,7 @@ studio.setAlwaysOnTop(true,'screen-saver',1)
     studio?.webContents.send('main-process-message', (new Date).toLocaleString())
   }
   )
-
+console.log(import.meta.env.VITE_APP_URL)
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL)
     studio.loadURL(`${import.meta.env.VITE_APP_URL}/studio.html`)
@@ -144,11 +144,13 @@ ipcMain.on('closeApp', () => {
 })
 
 ipcMain.handle('getSources', async () => {
-  return await desktopCapturer.getSources({
+  const data= await desktopCapturer.getSources({
     thumbnailSize:{height:100,width:150},
     fetchWindowIcons:true,
     types:['window','screen']
   })
+  console.log("Displays",data)
+  return data
 })
 
 ipcMain.on('media-sources',(event,payload)=>{
@@ -168,7 +170,7 @@ ipcMain.on('resize-studio',(event,payload)=>{
 
 ipcMain.on('hide-plugin',(event,payload)=>{
   console.log(event)
-  studio?.webContents.send('hide-plugin',payload)
+  win?.webContents.send('hide-plugin',payload)
 })
 
 

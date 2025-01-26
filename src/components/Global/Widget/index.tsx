@@ -7,6 +7,7 @@ import MediaConfiguration from "../MediaConfiguration";
 
 
 export default function Widget() {
+  console.log("the widget is called")
     const[profile,setProfile]=useState<{status: number
   user: 
       | ({
@@ -37,12 +38,15 @@ export default function Widget() {
     const {user}=useUser();
     // getting access to the media resources
     const {state,fetchMediaResources}=useMediaSources();
+    console.log("the state is"+state)
     useEffect(()=>{
       if(user && user.id){
         fetchUserProfile(user.id)
         .then((p)=>setProfile(p))
+        fetchMediaResources()
       }
     },[user])
+
     return (
         <div  className="p-5">
             <ClerkLoading>
