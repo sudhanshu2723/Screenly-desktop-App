@@ -27,7 +27,7 @@ let win: BrowserWindow | null
 let studio: BrowserWindow | null
 let floatingWebCam: BrowserWindow | null
 
-function createWindow() {
+function createWindow(){
   win = new BrowserWindow({
     width:500,
     height:600,
@@ -93,6 +93,8 @@ win.setAlwaysOnTop(true,'screen-saver',1)
 studio.setVisibleOnAllWorkspaces(true,{visibleOnFullScreen:true})
 studio.setAlwaysOnTop(true,'screen-saver',1)
 
+floatingWebCam.setVisibleOnAllWorkspaces(true,{visibleOnFullScreen:true})
+floatingWebCam.setAlwaysOnTop(true,'screen-saver',1)
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
     win?.webContents.send('main-process-message', (new Date).toLocaleString())
@@ -102,6 +104,7 @@ studio.setAlwaysOnTop(true,'screen-saver',1)
     studio?.webContents.send('main-process-message', (new Date).toLocaleString())
   }
   )
+ 
 console.log(import.meta.env.VITE_APP_URL)
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL)

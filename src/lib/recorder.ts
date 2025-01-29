@@ -13,7 +13,7 @@ export default function StartRecording(onScourses:{
     id:string
 }){
     hidePluginWindow(true)
-    videoTransferFileName=`${uuid()}-${onScourses?.id.slice(0,8)}}.webm`
+    videoTransferFileName=`${uuid()}-${onScourses?.id.slice(0,8)}.webm`
     mediaRecorder!.start(1000)
 }
 
@@ -30,6 +30,7 @@ export const onStopRecording=()=>{
 }
 
 export const onDataAvailable=(e:BlobEvent)=>{
+
    socket.emit("video-chunks",{
     chunks:e.data,
     filename:videoTransferFileName
@@ -53,7 +54,7 @@ export const selectSources=async(onSources:{
                 minHeight:onSources.preset==='HD' ? 1080 : 720,
                 maxWidth:onSources.preset==='HD' ? 1920 : 1280,
                 maxHeight:onSources.preset==='HD' ? 1080 : 720,
-                frameRate:60
+                frameRate:20
             }
         }
     }
@@ -61,9 +62,7 @@ export const selectSources=async(onSources:{
     const stream=await navigator.mediaDevices.getUserMedia(constraints)
     const audioStream=await navigator.mediaDevices.getUserMedia({
         video:false,
-        audio:onSources?.audio ? {
-            deviceId:{exact:onSources.audio}
-        } : false
+        audio:{deviceId:{exact:onSources.audio} }
     } )
         if(videoElement && videoElement.current){
             videoElement.current.srcObject=stream 
@@ -77,7 +76,7 @@ export const selectSources=async(onSources:{
             mimeType:'video/webm; codecs=vp9'
         })
         mediaRecorder.ondataavailable=onDataAvailable
-        mediaRecorder.onstart=stopRecording 
+        mediaRecorder.onstop=stopRecording 
 
   }
 }
